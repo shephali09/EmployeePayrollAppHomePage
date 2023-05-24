@@ -126,6 +126,10 @@ class EmployeePayrollData{
      }
      alert(employeePayrollList.toString());
      localStorage.setItem("EmployeePayrollList",JSON.stringify(employeePayrollList))
+     for(const employeePayrollData of employeePayrollList){
+        console.log(employeePayrollData._department);
+        console.log(employeePayrollData._startDate);
+     }
  }
  
  const createEmployeePayroll = () => {
@@ -139,11 +143,13 @@ class EmployeePayrollData{
  
      employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
      employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
-     employeePayrollData.department = getSelectedValues('[name=department]');
+     employeePayrollData.department = document.querySelectorAll('input[class="label text"]:checked');
      employeePayrollData.salary = getInputValueById('#salary');
      employeePayrollData.note = getInputValueById('#notes');
  
+     let deptValues = [];
      let date = getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
+     employeePayrollData.department.forEach((dept) => deptValues.push(dept.value))
      employeePayrollData.date = Date.parse(date);
      return employeePayrollData;
  }
@@ -198,3 +204,4 @@ const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
 }
+
